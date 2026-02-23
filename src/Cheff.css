@@ -5,6 +5,9 @@
 body {
     margin: 0;
     font-family: Inter, sans-serif;
+    
+
+
 }
 header{
     font-family: "Borel", cursive;
@@ -25,6 +28,7 @@ header > h1{
 }
 main {
     padding: 30px 30px 10px;
+    padding-bottom: 200px;
 }
 
 form {
