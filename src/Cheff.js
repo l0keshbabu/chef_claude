@@ -17,6 +17,14 @@ const MainForm = () => {
 
     const [ingredients,setingredients] = React.useState([])
     const [recipe,setrecipe] = React.useState("")
+    const recipeSection = React.useRef(null)
+    
+    React.useEffect(() => {
+        if(recipe !==null && recipeSection.current !==null){
+            recipeSection.current.scrollIntoView()
+        }
+
+    },[recipe])
     
     
 
@@ -34,7 +42,7 @@ const MainForm = () => {
                     <input type="text" placeholder="e.g. Eggs" name="Ingredient"></input>
                     <button>Add Ingredient</button>
                 </form>
-                {ingredients.length > 0 && <IngredientsList ingredients={ingredients} getRecipe={getRecipe}/>}
+                {ingredients.length > 0 && <IngredientsList ingredients={ingredients} getRecipe={getRecipe} ref={recipeSection}/>}
             {recipe && <ClaudeRecipe recipe={recipe}/>}
         </main>
     )
