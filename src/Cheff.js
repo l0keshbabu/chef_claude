@@ -17,6 +17,7 @@ const MainForm = () => {
 
     const [ingredients,setingredients] = React.useState([])
     const [recipe,setrecipe] = React.useState("")
+    const [cuisine, setCuisine] = React.useState("")
     const recipeSection = React.useRef(null)
 
   React.useEffect(() => {
@@ -38,8 +39,24 @@ const MainForm = () => {
         <main>
                 <form action={SubmitHandler}>
                     <input type="text" placeholder="e.g. Eggs" name="Ingredient"></input>
+                    <select
+                        value={cuisine}
+                        onChange={(e) => setCuisine(e.target.value)}
+                    >
+                        <option value="" disabled hidden>Select cuisine</option>
+                        <option value="Indian">Indian</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Mexican">Mexican</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Mediterranean">Mediterranean</option>
+                        <option value="American">American</option>
+                        <option value="Thai">Thai</option>
+                    </select>
                     <button>Add Ingredient</button>
+                     
                 </form>
+               
                 {ingredients.length > 0 && <IngredientsList ingredients={ingredients} getRecipe={getRecipe} recipeRef={recipeSection}/>}
             {recipe && <ClaudeRecipe recipe={recipe}/>}
         </main>
