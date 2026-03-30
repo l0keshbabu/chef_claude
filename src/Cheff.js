@@ -32,7 +32,7 @@ const MainForm = () => {
         setingredients(prevIngredients => [...prevIngredients,newIngredient])
     }
     async function getRecipe(){
-        const recipeMarkdown = await getRecipeFromGroq(ingredients)
+        const recipeMarkdown = await getRecipeFromGroq(ingredients, cuisine)
         setrecipe(recipeMarkdown)
     } 
     return(
@@ -71,5 +71,4 @@ export default function ChefClaude(){
         </div>
     )
 }
-// so this chefClaude function is expoting to app.js in the src forder from there its going to index.js 
-// and from there its imported to index.html.this is waht it compi;ed in the web 
+
