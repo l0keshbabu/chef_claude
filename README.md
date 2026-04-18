@@ -26,8 +26,34 @@ Chef Claude is a smart web application that generates personalized recipes based
 
 ## 📂 Project Structure
 
-```
-CHEF CLAUDE/ │ ├── public/ │ ├── index.html │ ├── logo192.png │ ├── logo512.png │ ├── manifest.json │ └── robots.txt │ ├── src/ │ ├── assets/ │ ├── ai.js │ ├── Cheff.css │ ├── Chef.js │ ├── ClaudeRecipe.js │ ├── IngredientsList.js │ ├── App.test.js │ ├── index.js │ ├── logo.svg │ ├── reportWebVitals.js │ └── setupTests.js │ ├── .env ├── .gitignore ├── package.json ├── package-lock.json └── README.md
+```bash
+CHEF CLAUDE/
+│
+├── public/
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+│
+├── src/
+│   ├── assets/
+│   ├── ai.js
+│   ├── Cheff.css
+│   ├── Chef.js
+│   ├── ClaudeRecipe.js
+│   ├── IngredientsList.js
+│   ├── App.test.js
+│   ├── index.js
+│   ├── logo.svg
+│   ├── reportWebVitals.js
+│   └── setupTests.js
+│
+├── .env
+├── .gitignore
+├── package.json
+├── package-lock.json
+└── README.md
 ```
 
 ---
