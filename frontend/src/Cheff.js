@@ -34,6 +34,11 @@ const MainForm = () => {
 
         setingredients(prevIngredients => [...prevIngredients,newIngredient])
     }
+    function removeIngredient(index) {
+    setingredients(prevIngredients =>
+        prevIngredients.filter((_, i) => i !== index)
+    )
+}
     async function getRecipe(){
         const recipeMarkdown = await getRecipeFromGroq(ingredients, cuisine)
         setrecipe(recipeMarkdown)
@@ -46,7 +51,7 @@ const MainForm = () => {
                         value={cuisine}
                         onChange={(e) => setCuisine(e.target.value)}
                     >
-                        <option value="" disabled hidden>Select cuisine</option>
+                        <option value="">Select cuisine</option>
                         <option value="Indian">Indian</option>
                         <option value="Chinese">Chinese</option>
                         <option value="Italian">Italian</option>
@@ -60,7 +65,7 @@ const MainForm = () => {
                      
                 </form>
                
-                {ingredients.length > 0 && <IngredientsList ingredients={ingredients} getRecipe={getRecipe} recipeRef={recipeSection}/>}
+                {ingredients.length > 0 && <IngredientsList ingredients={ingredients} removeIngredient={removeIngredient} getRecipe={getRecipe} recipeRef={recipeSection}/>}
             {recipe && <ClaudeRecipe recipe={recipe}/>}
         </main>
     )
