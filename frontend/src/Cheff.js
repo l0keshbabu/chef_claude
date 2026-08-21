@@ -29,6 +29,9 @@ const MainForm = () => {
 
     function SubmitHandler(formData){
         const newIngredient = formData.get("Ingredient")
+        
+        if (newIngredient.trim() === "") return
+
         setingredients(prevIngredients => [...prevIngredients,newIngredient])
     }
     async function getRecipe(){
