@@ -65,7 +65,7 @@ const MainForm = () => {
                      
                 </form>
                
-                {ingredients.length > 0 && <IngredientsList ingredients={ingredients} removeIngredient={removeIngredient} getRecipe={getRecipe} recipeRef={recipeSection}/>}
+                <IngredientsList ingredients={ingredients} removeIngredient={removeIngredient} getRecipe={getRecipe} recipeRef={recipeSection}/>
             {recipe && <ClaudeRecipe recipe={recipe}/>}
         </main>
     )
