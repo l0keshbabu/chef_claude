@@ -3,7 +3,7 @@ import chefimg from "./assets/images/cheff/chef1.png"
 import React from "react"
 import ClaudeRecipe from "./ClaudeRecipe"
 import IngredientsList from "./IngredientsList"
-import {getRecipeFromGroq} from "./ai"
+import { getRecipeFromBackend } from "./api"
 //==========================Cheff components start==========================
 const Header = () => {
     return(
@@ -40,9 +40,14 @@ const MainForm = () => {
     )
 }
     async function getRecipe(){
-        const recipeMarkdown = await getRecipeFromGroq(ingredients, cuisine)
+    try {
+        const recipeMarkdown = await getRecipeFromBackend(ingredients, cuisine)
         setrecipe(recipeMarkdown)
-    } 
+    } catch (error) {
+        console.error("Recipe generation failed:", error)
+    }
+} 
+    
     return(
         <main>
                 <form action={SubmitHandler}>
