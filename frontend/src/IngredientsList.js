@@ -29,14 +29,19 @@ export default function IngredientsList(props) {
 
                     {props.ingredients.length >= 4 && (
                         <div className="get-recipe-container">
-                            <div ref={props.recipeRef}>
-                                <h3>Ready for a recipe?</h3>
-                                <p>Generate a recipe from your list of ingredients.</p>
-                            </div>
-                            <button onClick={props.getRecipe}>
-                                Get a recipe
-                            </button>
-                        </div>
+    <div className="recipe-intro">
+        <span className="recipe-icon" aria-hidden="true">🍳</span>
+
+        <div>
+            <h3>Ready for a recipe?</h3>
+            <p>Generate a recipe from your list of ingredients.</p>
+        </div>
+    </div>
+
+    <button type="button">
+        Get a recipe
+    </button>
+</div>
                     )}
                 </>
             )}
