@@ -16,6 +16,8 @@ const Header = () => {
 const MainForm = () => {
 
     const [ingredients,setingredients] = React.useState([])
+    const [duplicateMessage, setDuplicateMessage] = React.useState("")
+    const [showDuplicate, setShowDuplicate] = React.useState(false)
     const [recipe,setrecipe] = React.useState("")
     const [cuisine, setCuisine] = React.useState("")
     const recipeSection = React.useRef(null)
@@ -25,13 +27,41 @@ const MainForm = () => {
         recipeSection.current.scrollIntoView({behavior: "smooth"})
 }}, [recipe])
     
+    React.useEffect(() => {
+    if (!duplicateMessage) return
+
+    setShowDuplicate(true)
+
+    const hideTimer = setTimeout(() => {
+        setShowDuplicate(false)
+    }, 3000)
+
+    const removeTimer = setTimeout(() => {
+        setDuplicateMessage("")
+    }, 3500)
+
+    return () => {
+        clearTimeout(hideTimer)
+        clearTimeout(removeTimer)
+    }
+}, [duplicateMessage])
     
 
     function SubmitHandler(formData){
-        const newIngredient = formData.get("Ingredient")
+        const rawIngredient = formData.get("Ingredient")
+        const newIngredient = rawIngredient.trim().toLowerCase()
         
-        if (newIngredient.trim() === "") return
-
+        if (newIngredient === "") return
+        const alreadyExists = ingredients.some(
+        ingredient => ingredient.toLowerCase() === newIngredient
+    )
+        if (alreadyExists) {
+    setDuplicateMessage(
+        `"${newIngredient}" is already in your ingredient list.`
+    )
+    setShowDuplicate(true)
+    return
+}
         setingredients(prevIngredients => [...prevIngredients,newIngredient])
     }
     function removeIngredient(index) {
@@ -69,6 +99,15 @@ const MainForm = () => {
                     <button>Add Ingredient</button>
                      
                 </form>
+               {duplicateMessage && (
+    <div
+        className={`duplicate-message ${showDuplicate ? "show" : "hide"}`}
+        role="alert"
+    >
+        <span className="duplicate-icon" aria-hidden="true">!</span>
+        <span>{duplicateMessage}</span>
+    </div>
+)}
                
                 <IngredientsList ingredients={ingredients} removeIngredient={removeIngredient} getRecipe={getRecipe} recipeRef={recipeSection}/>
             {recipe && <ClaudeRecipe recipe={recipe}/>}
