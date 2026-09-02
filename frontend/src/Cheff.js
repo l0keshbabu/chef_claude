@@ -47,23 +47,33 @@ const MainForm = () => {
 }, [duplicateMessage])
     
 
-    function SubmitHandler(formData){
-        const rawIngredient = formData.get("Ingredient")
-        const newIngredient = rawIngredient.trim().toLowerCase()
-        
-        if (newIngredient === "") return
-        const alreadyExists = ingredients.some(
+   function SubmitHandler(event) {
+    event.preventDefault()
+
+    const formData = new FormData(event.currentTarget)
+    const rawIngredient = formData.get("Ingredient")
+    const newIngredient = rawIngredient.trim().toLowerCase()
+
+    if (newIngredient === "") return
+
+    const alreadyExists = ingredients.some(
         ingredient => ingredient.toLowerCase() === newIngredient
     )
-        if (alreadyExists) {
-    setDuplicateMessage(
-        `"${newIngredient}" is already in your ingredient list.`
-    )
-    setShowDuplicate(true)
-    return
-}
-        setingredients(prevIngredients => [...prevIngredients,newIngredient])
+
+    if (alreadyExists) {
+        setDuplicateMessage(
+            `"${newIngredient}" is already in your ingredient list.`
+        )
+        setShowDuplicate(true)
+        return
     }
+
+    setingredients(prevIngredients => [
+        ...prevIngredients,
+        newIngredient
+    ])
+    event.currentTarget.elements.Ingredient.value = ""
+}
     function removeIngredient(index) {
     setingredients(prevIngredients =>
         prevIngredients.filter((_, i) => i !== index)
@@ -80,7 +90,7 @@ const MainForm = () => {
     
     return(
         <main>
-                <form action={SubmitHandler}>
+                <form onSubmit={SubmitHandler}>
                     <input type="text" placeholder="e.g. Eggs" name="Ingredient"></input>
                     <select
                         value={cuisine}
