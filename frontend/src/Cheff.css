@@ -229,6 +229,46 @@ ul.ingredients-list > li {
 .suggested-recipe-container ul li, .suggested-recipe-container ol li {
     margin-bottom: 8px;
 }
+
+/* Recipe tables */
+.suggested-recipe-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+}
+
+.suggested-recipe-container th,
+.suggested-recipe-container td {
+    border: 1px solid #cbd0d6;
+    padding: 10px 14px;
+    text-align: left;
+}
+
+.suggested-recipe-container th {
+    font-weight: 600;
+    background-color: #d9dde2;
+}
+
+.suggested-recipe-container tr:nth-child(even) {
+    background-color: #eef0f2;
+}
+
+/* Keep the columns balanced */
+.suggested-recipe-container th:first-child,
+.suggested-recipe-container td:first-child {
+    width: 20%;
+}
+
+.suggested-recipe-container th:nth-child(2),
+.suggested-recipe-container td:nth-child(2) {
+    width: 55%;
+}
+
+.suggested-recipe-container th:last-child,
+.suggested-recipe-container td:last-child {
+    width: 25%;
+}
 .duplicate-message {
     position: fixed;
     left: 50%;
