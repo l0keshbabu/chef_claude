@@ -56,6 +56,8 @@ const MainForm = () => {
 
     if (newIngredient === "") return
 
+    event.currentTarget.elements.Ingredient.value = ""
+
     const alreadyExists = ingredients.some(
         ingredient => ingredient.toLowerCase() === newIngredient
     )
@@ -72,7 +74,7 @@ const MainForm = () => {
         ...prevIngredients,
         newIngredient
     ])
-    event.currentTarget.elements.Ingredient.value = ""
+    
 }
     function removeIngredient(index) {
     setingredients(prevIngredients =>
