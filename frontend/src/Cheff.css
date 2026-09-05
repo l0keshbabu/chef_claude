@@ -102,6 +102,23 @@ form > button::before{
         height: 46px;
     }
 }
+
+@media (max-width: 767px) {
+    .get-recipe-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .recipe-intro {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .get-recipe-container button {
+        width: 100%;
+    }
+}
 /* .wrapper{
     max-width: 400px;
     margin: 0 auto;
