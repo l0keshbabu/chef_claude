@@ -28,23 +28,35 @@ export default function IngredientsList(props) {
                     </ul>
 
                     {props.ingredients.length >= 4 && (
-                        <div className="get-recipe-container">
-    <div className="recipe-intro">
-        <span className="recipe-icon" aria-hidden="true">🍳</span>
+    <>
+        <div className="get-recipe-container">
+            <div className="recipe-intro">
+                <span className="recipe-icon" aria-hidden="true">🍳</span>
 
-        <div>
-            <h3>Ready for a recipe?</h3>
-            <p>Generate a recipe from your list of ingredients.</p>
+                <div>
+                    <h3>Ready for a recipe?</h3>
+                    <p>Generate a recipe from your list of ingredients.</p>
+                </div>
+            </div>
+
+            <button
+                type="button"
+                onClick={() => props.getRecipe()}
+                disabled={props.isLoading}
+            >
+                {props.isLoading ? "Cooking..." : "Get a recipe"}
+            </button>
         </div>
-    </div>
 
-    <button type="button" onClick={() => props.getRecipe()}>
-        Get a recipe
-    </button>
-</div>
-                    )}
+        {props.isLoading && (
+            <div className="recipe-loading" aria-live="polite">
+                <div className="recipe-spinner" aria-hidden="true"></div>
+                <p>🍳 Let us cook something special...</p>
+            </div>
+        )}
+    </>
+)}
                 </>
             )}
         </section>
-    )
-}
+    )}

@@ -21,6 +21,7 @@ const MainForm = () => {
     const [recipe,setrecipe] = React.useState("")
     const [cuisine, setCuisine] = React.useState("")
     const recipeSection = React.useRef(null)
+    const [isLoading, setIsLoading] = React.useState(false)
 
   React.useEffect(() => {
     if (recipe && recipeSection.current) {
@@ -82,13 +83,17 @@ const MainForm = () => {
     )
 }
     async function getRecipe(){
+    setIsLoading(true)
+
     try {
         const recipeMarkdown = await getRecipeFromBackend(ingredients, cuisine)
         setrecipe(recipeMarkdown)
     } catch (error) {
         console.error("Recipe generation failed:", error)
+    } finally {
+        setIsLoading(false)
     }
-} 
+}
     
     return(
         <main>
@@ -121,7 +126,13 @@ const MainForm = () => {
     </div>
 )}
                
-                <IngredientsList ingredients={ingredients} removeIngredient={removeIngredient} getRecipe={getRecipe} recipeRef={recipeSection}/>
+                <IngredientsList
+    ingredients={ingredients}
+    removeIngredient={removeIngredient}
+    getRecipe={getRecipe}
+    recipeRef={recipeSection}
+    isLoading={isLoading}
+/>
             {recipe && <ClaudeRecipe recipe={recipe}/>}
         </main>
     )

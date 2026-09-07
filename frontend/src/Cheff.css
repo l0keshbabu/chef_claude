@@ -248,6 +248,37 @@ ul.ingredients-list > li {
     font-size: 20px;
     flex-shrink: 0;
 }
+
+.recipe-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    color: #667085;
+}
+
+.recipe-loading p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 22px;
+}
+
+.recipe-spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid #eadfd5;
+    border-top-color: #D17557;
+    border-radius: 50%;
+    animation: recipe-spin 0.8s linear infinite;
+}
+
+@keyframes recipe-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
 .suggested-recipe-container {
     color: #475467;
     padding: 15px 25px;
