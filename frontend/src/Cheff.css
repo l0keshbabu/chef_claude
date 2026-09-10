@@ -423,3 +423,29 @@ ul.ingredients-list > li {
         transform: translate(-50%, 80px);
     }
 }
+
+/* Recipe table */
+@media (max-width: 767px) {
+    .suggested-recipe-container table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .suggested-recipe-container th,
+    .suggested-recipe-container td {
+        white-space: nowrap;
+    }
+}
+
+/* Duplicate toast */
+@media (max-width: 767px) {
+    .duplicate-message {
+        max-width: calc(100% - 32px);
+    }
+
+    .duplicate-message span:last-child {
+        min-width: 0;
+        overflow-wrap: break-word;
+    }
+}
