@@ -5,11 +5,23 @@ import ClaudeRecipe from "./ClaudeRecipe"
 import IngredientsList from "./IngredientsList"
 import { getRecipeFromBackend } from "./api"
 //==========================Cheff components start==========================
-const Header = () => {
+const Header = ({ theme, toggleTheme }) => {
     return(
         <header>
             <img src={chefimg} alt="chef logo" className="chef_logo"></img>
             <h1>Chef Claude</h1>
+
+            <button
+        type="button"
+        className="theme-toggle"
+        onClick={toggleTheme}
+        aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+        aria-pressed={theme === "dark"}
+    >
+        <span aria-hidden="true">
+            {theme === "dark" ? "☀️" : "🌙"}
+        </span>
+    </button>
         </header>
     )
 } 
@@ -139,9 +151,31 @@ const MainForm = () => {
 }
 //==========================Cheff components End============================ 
 export default function ChefClaude(){
+    const [theme, setTheme] = React.useState(() => {
+    try {
+        return localStorage.getItem("chefClaudeTheme") || "light"
+    } catch {
+        return "light"
+    }
+})
+React.useEffect(() => {
+    document.body.setAttribute("data-theme", theme)
+
+    try {
+        localStorage.setItem("chefClaudeTheme", theme)
+    } catch {
+        // localStorage unavailable
+    }
+}, [theme])
+function toggleTheme() {
+    setTheme(prevTheme => (
+        prevTheme === "light" ? "dark" : "light"
+    ))
+}
     return (
         <div>
-            <Header/>
+            <Header theme={theme}
+                    toggleTheme={toggleTheme}/>
             <MainForm/>
         </div>
     )
