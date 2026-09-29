@@ -1,3 +1,73 @@
+:root {
+    --background: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #fafaf9;
+    --surface-3: #d9dde2;
+    --surface-warm: #F5F1EC;
+    --surface-recipe: #e5e7ea;
+    --surface-recipe-alt: #eef0f2;
+    --surface-recipe-head: #d9dde2;
+    --border-recipe: #cbd0d6;
+    --border: #D1D5DB;
+    --border-warm: #E8E0D8;
+    --text-primary: #1f1f1f;
+    --text-secondary: #667085;
+    --text-muted: #98a2b3;
+    --accent: #D17557;
+    --accent-hover: #C56548;
+    --accent-text: #FAFAF8;
+    --button-bg: #1f1f1f;
+    --button-text: #ffffff;
+    --button-hover: #333333;
+    --icon-bg: #fffaf5;
+    --icon-border: #eadfd5;
+    --header-bg: #ffffff;
+    --header-shadow: rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+    --shadow-sm: rgba(0, 0, 0, 0.05);
+    --danger-bg: #fff5f3;
+    --danger-border: #f3c7c2;
+    --danger-text: #b42318;
+    --danger-icon-bg: #f9d5d0;
+    --danger-icon-text: #a61b12;
+    --remove-hover-bg: #fee4e2;
+    --remove-hover-text: #d92d20;
+}
+
+body[data-theme="dark"] {
+    --background: #151515;
+    --surface: #1F2937;
+    --surface-2: #1b2028;
+    --surface-3: #263140;
+    --surface-warm: #2a2420;
+    --surface-recipe: #1b2128;
+    --surface-recipe-alt: #212933;
+    --surface-recipe-head: #263140;
+    --border-recipe: #374151;
+    --border: #374151;
+    --border-warm: #3d332b;
+    --text-primary: #F9FAFB;
+    --text-secondary: #D1D5DB;
+    --text-muted: #9CA3AF;
+    --accent: #E08A6D;
+    --accent-hover: #E89A80;
+    --accent-text: #1f1611;
+    --button-bg: #F9FAFB;
+    --button-text: #151515;
+    --button-hover: #e5e7eb;
+    --icon-bg: #2a2420;
+    --icon-border: #3d332b;
+    --header-bg: #1F2937;
+    --header-shadow: rgba(0, 0, 0, 0.35), 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+    --shadow-sm: rgba(0, 0, 0, 0.2);
+    --danger-bg: #2a1a19;
+    --danger-border: #5c2b28;
+    --danger-text: #f5a399;
+    --danger-icon-bg: #4a201d;
+    --danger-icon-text: #f5a399;
+    --remove-hover-bg: #4a201d;
+    --remove-hover-text: #f5a399;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -5,20 +75,21 @@
 body {
     margin: 0;
     font-family: Inter, sans-serif;
-    
-
-
+    background-color: var(--background);
+    color: var(--text-primary);
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
-header{
+header {
+    position: relative;
     font-family: "Borel", cursive;
     display: flex;
-    position: relative;
     align-items: center;
     justify-content: center;
     gap: 11px;
     height: 80px;
-    background-color: white;
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+    background-color: var(--header-bg);
+    box-shadow: 0px 1px 3px 0px var(--header-shadow);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 header > img{
     width: 50px;
