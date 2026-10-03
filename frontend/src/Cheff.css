@@ -117,32 +117,38 @@ form {
 
 form > input {
     border-radius: 8px;
-    border: 1px solid #D1D5DB;
+    border: 1px solid var(--border);
     padding: 10px 14px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px var(--shadow-sm);
     flex: 1;
     min-width: 0;
     max-width: none;
     font-family: Inter, sans-serif;
     font-size: 0.95rem;
+    background-color: var(--surface);
+    color: var(--text-primary);
+}
+form > input::placeholder {
+    color: var(--text-muted);
 }
 form > select {
     border-radius: 8px;
-    border: 1px solid #D1D5DB;
+    border: 1px solid var(--border);
     padding: 10px 14px;
     font-family: Inter, sans-serif;
     font-size: 0.95rem;
-    background-color: white;
+    background-color: var(--surface);
+    color: var(--text-primary);
     cursor: pointer;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px var(--shadow-sm);
     min-width: 170px;
 }
 form > button {
     font-family: Inter, sans-serif;
     border-radius: 8px;
     border: none;
-    background-color: #1f1f1f;
-    color: white;
+    background-color: var(--button-bg);
+    color: var(--button-text);
     width: 165px;
     font-size: 0.9rem;
     cursor: pointer;
@@ -151,7 +157,7 @@ form > button {
 }
 
 form > button:hover {
-    background-color: #333;
+    background-color: var(--button-hover);
 }
 
 form > button:active {
@@ -201,12 +207,12 @@ form > button::before{
 } */
 .empty-ingredients {
     max-width: 581px;
-    margin: 10 0 48px;
+    margin: 10px 0 48px;
     padding: 16px 18px;
-    border: 1px dashed #d1d5db;
+    border: 1px dashed var(--border);
     border-radius: 8px;
-    background-color: #fafaf9;
-    color: #667085;
+    background-color: var(--surface-2);
+    color: var(--text-secondary);
     font-size: 0.97rem;
     line-height: 30px;
 }
@@ -223,9 +229,9 @@ ul.ingredients-list > li {
     justify-content: space-between;
     min-height: 44px;
     padding: 6px 10px 6px 14px;
-    color: #344054;
-    background-color: #f8f8f6;
-    border: 1px solid #e4e4e1;
+    color: var(--text-secondary);
+    background-color: var(--surface-2);
+    border: 1px solid var(--border);
     border-radius: 8px;
     margin-bottom: 8px;
 }
@@ -237,20 +243,17 @@ ul.ingredients-list > li {
     height: 28px;
     border: none;
     background: transparent;
-    color: #98a2b3;
+    color: var(--text-muted);
     font-size: 18px;
     line-height: 1;
     cursor: pointer;
     border-radius: 6px;
-    transition: 
-        background-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.15s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
 .remove-ingredient:hover {
-    color: #d92d20;
-    background-color: #fee4e2;
+    color: var(--remove-hover-text);
+    background-color: var(--remove-hover-bg);
 }
 
 .remove-ingredient:active {
@@ -262,8 +265,8 @@ ul.ingredients-list > li {
     align-items: center;
     gap: 30px;
     border-radius: 12px;
-    background: #F5F1EC;
-    border: 1px solid #E8E0D8;
+    background: var(--surface-warm);
+border: 1px solid var(--border-warm);
     padding: 24px 28px;
 }
 .recipe-intro {
@@ -276,12 +279,12 @@ ul.ingredients-list > li {
     font-size: 1.2rem;
     font-weight: 600;
     line-height: 24px;
-    color: #1F2937;
+    color: var(--text-primary);
 }
 
 .get-recipe-container p {
     margin: 0;
-    color: #667085;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     line-height: 22px;
 }
@@ -289,8 +292,8 @@ ul.ingredients-list > li {
 .get-recipe-container button {
     border: none;
     border-radius: 8px;
-    background: #D17557;
-    color: #FAFAF8;
+    background: var(--accent);
+color: var(--accent-text);
     padding: 11px 20px;
     font-family: Inter, sans-serif;
     font-size: 0.9rem;
@@ -304,8 +307,8 @@ ul.ingredients-list > li {
         box-shadow 0.2s ease;
 }
 .get-recipe-container button:hover {
-    background: #C56548;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    background: var(--accent-hover);
+    box-shadow: 0 4px 8px var(--shadow-sm);
 }
 
 .get-recipe-container button:active {
@@ -319,8 +322,8 @@ ul.ingredients-list > li {
     width: 42px;
     height: 42px;
     border-radius: 10px;
-    background: #fffaf5;
-    border: 1px solid #eadfd5;
+    background: var(--icon-bg);
+border: 1px solid var(--icon-border);
     font-size: 20px;
     flex-shrink: 0;
 }
@@ -332,7 +335,7 @@ ul.ingredients-list > li {
     justify-content: center;
     gap: 10px;
     margin-top: 24px;
-    color: #667085;
+    color: var(--text-secondary);
 }
 
 .recipe-loading p {
@@ -344,8 +347,8 @@ ul.ingredients-list > li {
 .recipe-spinner {
     width: 28px;
     height: 28px;
-    border: 3px solid #eadfd5;
-    border-top-color: #D17557;
+    border: 3px solid var(--icon-border);
+    border-top-color: var(--accent);
     border-radius: 50%;
     animation: recipe-spin 0.8s linear infinite;
 }
