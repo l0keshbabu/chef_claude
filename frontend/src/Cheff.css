@@ -359,14 +359,14 @@ border: 1px solid var(--icon-border);
     }
 }
 .suggested-recipe-container {
-    color: #475467;
+    color: var(--text-secondary);
     padding: 15px 25px;
     margin-top: 30px;
     border-radius: 6px;
     line-height: 28px;
     font-size: 1.125rem;
     font-weight: 400;
-    background-color: #e5e7ea;
+    background-color: var(--surface-recipe);
 }
 
 .suggested-recipe-container ul li, .suggested-recipe-container ol li {
@@ -383,18 +383,18 @@ border: 1px solid var(--icon-border);
 
 .suggested-recipe-container th,
 .suggested-recipe-container td {
-    border: 1px solid #cbd0d6;
+    border: 1px solid var(--border-recipe);
     padding: 10px 14px;
     text-align: left;
 }
 
 .suggested-recipe-container th {
     font-weight: 600;
-    background-color: #d9dde2;
+    background-color: var(--surface-recipe-head);
 }
 
 .suggested-recipe-container tr:nth-child(even) {
-    background-color: #eef0f2;
+    background-color: var(--surface-recipe-alt);
 }
 
 /* Keep the columns balanced */
@@ -423,16 +423,16 @@ border: 1px solid var(--icon-border);
 
     padding: 11px 16px;
 
-    border: 1px solid #f3c7c2;
+    border: 1px solid var(--danger-border);
     border-radius: 10px;
 
-    background-color: #fff5f3;
-    color: #b42318;
+    background-color: var(--danger-bg);
+    color: var(--danger-text);
 
     font-size: 0.875rem;
     line-height: 20px;
 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px var(--shadow-sm);
 
     pointer-events: none;
     z-index: 1000;
@@ -454,8 +454,8 @@ border: 1px solid var(--icon-border);
     height: 22px;
     flex-shrink: 0;
     border-radius: 50%;
-    background-color: #f9d5d0;
-    color: #a61b12;
+     background-color: var(--danger-icon-bg);
+    color: var(--danger-icon-text);
     font-size: 0.8rem;
     font-weight: 700;
 }
