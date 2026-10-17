@@ -34,6 +34,7 @@ const MainForm = () => {
     const [cuisine, setCuisine] = React.useState("")
     const recipeSection = React.useRef(null)
     const [isLoading, setIsLoading] = React.useState(false)
+    const recipeRequestInProgress = React.useRef(false)
 
   React.useEffect(() => {
     if (recipe && recipeSection.current) {
@@ -95,6 +96,8 @@ const MainForm = () => {
     )
 }
     async function getRecipe(){
+    if(recipeRequestInProgress.current) return 
+    recipeRequestInProgress.current = true  
     setIsLoading(true)
 
     try {
@@ -103,6 +106,7 @@ const MainForm = () => {
     } catch (error) {
         console.error("Recipe generation failed:", error)
     } finally {
+        recipeRequestInProgress.current = false
         setIsLoading(false)
     }
 }
