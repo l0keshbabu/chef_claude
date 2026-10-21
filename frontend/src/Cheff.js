@@ -35,6 +35,7 @@ const MainForm = () => {
     const recipeSection = React.useRef(null)
     const [isLoading, setIsLoading] = React.useState(false)
     const recipeRequestInProgress = React.useRef(false)
+    const [hasGeneratedRecipe, setHasGeneratedRecipe] = React.useState(false)
 
   React.useEffect(() => {
     if (recipe && recipeSection.current) {
@@ -103,6 +104,7 @@ const MainForm = () => {
     try {
         const recipeMarkdown = await getRecipeFromBackend(ingredients, cuisine)
         setrecipe(recipeMarkdown)
+        setHasGeneratedRecipe(true)
     } catch (error) {
         console.error("Recipe generation failed:", error)
     } finally {
