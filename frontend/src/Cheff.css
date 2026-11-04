@@ -301,12 +301,17 @@ color: var(--accent-text);
     cursor: pointer;
     white-space: nowrap;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-    transition:
-        background-color 0.2s ease,
-        transform 0.15s ease,
-        box-shadow 0.2s ease;
+    transition: background-color 0.25s ease,
+            transform 0.15s ease,
+            box-shadow 0.2s ease,
+            opacity 0.25s ease;
 }
-.get-recipe-container button:hover {
+.get-recipe-container button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+.get-recipe-container button:not(:disabled):hover {
     background: var(--accent-hover);
     box-shadow: 0 4px 8px var(--shadow-sm);
 }
