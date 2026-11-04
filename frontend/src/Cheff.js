@@ -150,6 +150,7 @@ const MainForm = () => {
     getRecipe={getRecipe}
     recipeRef={recipeSection}
     isLoading={isLoading}
+    hasGeneratedRecipe={hasGeneratedRecipe}
 />
             {recipe && <ClaudeRecipe recipe={recipe}/>}
         </main>

@@ -42,7 +42,7 @@ export default function IngredientsList(props) {
             <button
                 type="button"
                 onClick={() => props.getRecipe()}
-                disabled={props.isLoading}
+                disabled={props.isLoading || props.hasGeneratedRecipe}
             >
                 {props.isLoading ? "Cooking..." : "Get a recipe"}
             </button>
