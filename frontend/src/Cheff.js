@@ -41,6 +41,10 @@ const MainForm = () => {
     if (recipe && recipeSection.current) {
         recipeSection.current.scrollIntoView({behavior: "smooth"})
 }}, [recipe])
+
+    React.useEffect(() => {
+        setHasGeneratedRecipe(false)
+    },[ingredients,cuisine])
     
     React.useEffect(() => {
     if (!duplicateMessage) return
