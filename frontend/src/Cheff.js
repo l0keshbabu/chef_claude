@@ -25,6 +25,16 @@ const Header = ({ theme, toggleTheme }) => {
         </header>
     )
 } 
+const cuisineOptions = [
+    "Indian",
+    "Chinese",
+    "Italian",
+    "Mexican",
+    "Japanese",
+    "Mediterranean",
+    "American",
+    "Thai"
+]
 const MainForm = () => {
 
     const [ingredients,setingredients] = React.useState([])
@@ -36,6 +46,7 @@ const MainForm = () => {
     const [isLoading, setIsLoading] = React.useState(false)
     const recipeRequestInProgress = React.useRef(false)
     const [hasGeneratedRecipe, setHasGeneratedRecipe] = React.useState(false)
+    const [isCuisineMenuOpen,setIsCuisineMenuOpen] = React.useState(false)
 
   React.useEffect(() => {
     if (recipe && recipeSection.current) {
@@ -121,7 +132,7 @@ const MainForm = () => {
         <main>
                 <form onSubmit={SubmitHandler}>
                     <input type="text" placeholder="e.g. Eggs" name="Ingredient"></input>
-                    <select
+                    {/* <select
                         value={cuisine}
                         onChange={(e) => setCuisine(e.target.value)}
                     >
@@ -134,7 +145,40 @@ const MainForm = () => {
                         <option value="Mediterranean">Mediterranean</option>
                         <option value="American">American</option>
                         <option value="Thai">Thai</option>
-                    </select>
+                    </select> */}
+                    <div className="cuisine-selector">
+                        <button
+                        type="button"
+                        className="cuisine-trigger"
+                        onClick={() => setIsCuisineMenuOpen(prev => !prev)}
+                        aria-haspopup="listbox"
+                        aria-expanded={isCuisineMenuOpen}>
+                            <span>{cuisine || "Select Cuisine"}</span>
+                            <span className="cuisine-arrow" aria-hidden="true">⌄</span>
+                        </button>
+                        {isCuisineMenuOpen && (
+                            <div className="cuisine-menu" role="listbox">
+                                {cuisineOptions.map(option =>(
+                                    <button
+                                    key={option}
+                    type="button"
+                    role="option"
+                    aria-selected={cuisine === option}
+                    className={`cuisine-option ${
+                        cuisine === option ? "selected" : ""
+                    }`}
+                    onClick={() => {
+                        setCuisine(option)
+                        setIsCuisineMenuOpen(false)
+                    }}
+                                    >
+                                        {option}
+
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                     <button>Add Ingredient</button>
                      
                 </form>
