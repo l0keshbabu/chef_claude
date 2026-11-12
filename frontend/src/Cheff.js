@@ -1,138 +1,133 @@
-import "./Cheff.css"
-import chefimg from "./assets/images/cheff/chef1.png" 
-import React from "react"
-import ClaudeRecipe from "./ClaudeRecipe"
-import IngredientsList from "./IngredientsList"
-import { getRecipeFromBackend } from "./api"
+import "./Cheff.css";
+import chefimg from "./assets/images/cheff/chef1.png";
+import React from "react";
+import ClaudeRecipe from "./ClaudeRecipe";
+import IngredientsList from "./IngredientsList";
+import { getRecipeFromBackend } from "./api";
 //==========================Cheff components start==========================
 const Header = ({ theme, toggleTheme }) => {
-    return(
-        <header>
-            <img src={chefimg} alt="chef logo" className="chef_logo"></img>
-            <h1>Chef Claude</h1>
+  return (
+    <header>
+      <img src={chefimg} alt="chef logo" className="chef_logo"></img>
+      <h1>Chef Claude</h1>
 
-            <button
+      <button
         type="button"
         className="theme-toggle"
         onClick={toggleTheme}
-        aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+        aria-label={
+          theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+        }
         aria-pressed={theme === "dark"}
-    >
-        <span aria-hidden="true">
-            {theme === "dark" ? "☀️" : "🌙"}
-        </span>
-    </button>
-        </header>
-    )
-} 
+      >
+        <span aria-hidden="true">{theme === "dark" ? "☀️" : "🌙"}</span>
+      </button>
+    </header>
+  );
+};
 const cuisineOptions = [
-    "Indian",
-    "Chinese",
-    "Italian",
-    "Mexican",
-    "Japanese",
-    "Mediterranean",
-    "American",
-    "Thai"
-]
+  { name: "Indian", emoji: "🍛" },
+  { name: "Chinese", emoji: "🥡" },
+  { name: "Italian", emoji: "🍕" },
+  { name: "Mexican", emoji: "🌮" },
+  { name: "Japanese", emoji: "🍣" },
+  { name: "Mediterranean", emoji: "🥗" },
+  { name: "American", emoji: "🍔" },
+  { name: "Thai", emoji: "🍜" },
+];
 const MainForm = () => {
-
-    const [ingredients,setingredients] = React.useState([])
-    const [duplicateMessage, setDuplicateMessage] = React.useState("")
-    const [showDuplicate, setShowDuplicate] = React.useState(false)
-    const [recipe,setrecipe] = React.useState("")
-    const [cuisine, setCuisine] = React.useState("")
-    const recipeSection = React.useRef(null)
-    const [isLoading, setIsLoading] = React.useState(false)
-    const recipeRequestInProgress = React.useRef(false)
-    const [hasGeneratedRecipe, setHasGeneratedRecipe] = React.useState(false)
-    const [isCuisineMenuOpen,setIsCuisineMenuOpen] = React.useState(false)
+  const [ingredients, setingredients] = React.useState([]);
+  const [duplicateMessage, setDuplicateMessage] = React.useState("");
+  const [showDuplicate, setShowDuplicate] = React.useState(false);
+  const [recipe, setrecipe] = React.useState("");
+  const [cuisine, setCuisine] = React.useState("");
+  const recipeSection = React.useRef(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const recipeRequestInProgress = React.useRef(false);
+  const [hasGeneratedRecipe, setHasGeneratedRecipe] = React.useState(false);
+  const [isCuisineMenuOpen, setIsCuisineMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
     if (recipe && recipeSection.current) {
-        recipeSection.current.scrollIntoView({behavior: "smooth"})
-}}, [recipe])
+      recipeSection.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [recipe]);
 
-    React.useEffect(() => {
-        setHasGeneratedRecipe(false)
-    },[ingredients,cuisine])
-    
-    React.useEffect(() => {
-    if (!duplicateMessage) return
+  React.useEffect(() => {
+    setHasGeneratedRecipe(false);
+  }, [ingredients, cuisine]);
 
-    setShowDuplicate(true)
+  React.useEffect(() => {
+    if (!duplicateMessage) return;
+
+    setShowDuplicate(true);
 
     const hideTimer = setTimeout(() => {
-        setShowDuplicate(false)
-    }, 3000)
+      setShowDuplicate(false);
+    }, 3000);
 
     const removeTimer = setTimeout(() => {
-        setDuplicateMessage("")
-    }, 3500)
+      setDuplicateMessage("");
+    }, 3500);
 
     return () => {
-        clearTimeout(hideTimer)
-        clearTimeout(removeTimer)
-    }
-}, [duplicateMessage])
-    
+      clearTimeout(hideTimer);
+      clearTimeout(removeTimer);
+    };
+  }, [duplicateMessage]);
 
-   function SubmitHandler(event) {
-    event.preventDefault()
+  function SubmitHandler(event) {
+    event.preventDefault();
 
-    const formData = new FormData(event.currentTarget)
-    const rawIngredient = formData.get("Ingredient")
-    const newIngredient = rawIngredient.trim().toLowerCase()
+    const formData = new FormData(event.currentTarget);
+    const rawIngredient = formData.get("Ingredient");
+    const newIngredient = rawIngredient.trim().toLowerCase();
 
-    if (newIngredient === "") return
+    if (newIngredient === "") return;
 
-    event.currentTarget.elements.Ingredient.value = ""
+    event.currentTarget.elements.Ingredient.value = "";
 
     const alreadyExists = ingredients.some(
-        ingredient => ingredient.toLowerCase() === newIngredient
-    )
+      (ingredient) => ingredient.toLowerCase() === newIngredient,
+    );
 
     if (alreadyExists) {
-        setDuplicateMessage(
-            `"${newIngredient}" is already in your ingredient list.`
-        )
-        setShowDuplicate(true)
-        return
+      setDuplicateMessage(
+        `"${newIngredient}" is already in your ingredient list.`,
+      );
+      setShowDuplicate(true);
+      return;
     }
 
-    setingredients(prevIngredients => [
-        ...prevIngredients,
-        newIngredient
-    ])
-    
-}
-    function removeIngredient(index) {
-    setingredients(prevIngredients =>
-        prevIngredients.filter((_, i) => i !== index)
-    )
-}
-    async function getRecipe(){
-    if(recipeRequestInProgress.current) return 
-    recipeRequestInProgress.current = true  
-    setIsLoading(true)
+    setingredients((prevIngredients) => [...prevIngredients, newIngredient]);
+  }
+  function removeIngredient(index) {
+    setingredients((prevIngredients) =>
+      prevIngredients.filter((_, i) => i !== index),
+    );
+  }
+  async function getRecipe() {
+    if (recipeRequestInProgress.current) return;
+    recipeRequestInProgress.current = true;
+    setIsLoading(true);
 
     try {
-        const recipeMarkdown = await getRecipeFromBackend(ingredients, cuisine)
-        setrecipe(recipeMarkdown)
-        setHasGeneratedRecipe(true)
+      const recipeMarkdown = await getRecipeFromBackend(ingredients, cuisine);
+      setrecipe(recipeMarkdown);
+      setHasGeneratedRecipe(true);
     } catch (error) {
-        console.error("Recipe generation failed:", error)
+      console.error("Recipe generation failed:", error);
     } finally {
-        recipeRequestInProgress.current = false
-        setIsLoading(false)
+      recipeRequestInProgress.current = false;
+      setIsLoading(false);
     }
-}
-    
-    return(
-        <main>
-                <form onSubmit={SubmitHandler}>
-                    <input type="text" placeholder="e.g. Eggs" name="Ingredient"></input>
-                    {/* <select
+  }
+
+  return (
+    <main>
+      <form onSubmit={SubmitHandler}>
+        <input type="text" placeholder="e.g. Eggs" name="Ingredient"></input>
+        {/* <select
                         value={cuisine}
                         onChange={(e) => setCuisine(e.target.value)}
                     >
@@ -146,93 +141,112 @@ const MainForm = () => {
                         <option value="American">American</option>
                         <option value="Thai">Thai</option>
                     </select> */}
-                    <div className="cuisine-selector">
-                        <button
-                        type="button"
-                        className="cuisine-trigger"
-                        onClick={() => setIsCuisineMenuOpen(prev => !prev)}
-                        aria-haspopup="listbox"
-                        aria-expanded={isCuisineMenuOpen}>
-                            <span>{cuisine || "Select Cuisine"}</span>
-                            <span className="cuisine-arrow" aria-hidden="true">⌄</span>
-                        </button>
-                        {isCuisineMenuOpen && (
-                            <div className="cuisine-menu" role="listbox">
-                                {cuisineOptions.map(option =>(
-                                    <button
-                                    key={option}
-                    type="button"
-                    role="option"
-                    aria-selected={cuisine === option}
-                    className={`cuisine-option ${
-                        cuisine === option ? "selected" : ""
-                    }`}
-                    onClick={() => {
-                        setCuisine(option)
-                        setIsCuisineMenuOpen(false)
-                    }}
-                                    >
-                                        {option}
-
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                    <button>Add Ingredient</button>
-                     
-                </form>
-               {duplicateMessage && (
-    <div
-        className={`duplicate-message ${showDuplicate ? "show" : "hide"}`}
-        role="alert"
-    >
-        <span className="duplicate-icon" aria-hidden="true">!</span>
-        <span>{duplicateMessage}</span>
-    </div>
-)}
-               
-                <IngredientsList
-    ingredients={ingredients}
-    removeIngredient={removeIngredient}
-    getRecipe={getRecipe}
-    recipeRef={recipeSection}
-    isLoading={isLoading}
-    hasGeneratedRecipe={hasGeneratedRecipe}
-/>
-            {recipe && <ClaudeRecipe recipe={recipe}/>}
-        </main>
-    )
-}
-//==========================Cheff components End============================ 
-export default function ChefClaude(){
-    const [theme, setTheme] = React.useState(() => {
-    try {
-        return localStorage.getItem("chefClaudeTheme") || "light"
-    } catch {
-        return "light"
-    }
-})
-React.useEffect(() => {
-    document.body.setAttribute("data-theme", theme)
-
-    try {
-        localStorage.setItem("chefClaudeTheme", theme)
-    } catch {
-        // localStorage unavailable
-    }
-}, [theme])
-function toggleTheme() {
-    setTheme(prevTheme => (
-        prevTheme === "light" ? "dark" : "light"
-    ))
-}
-    return (
-        <div>
-            <Header theme={theme}
-                    toggleTheme={toggleTheme}/>
-            <MainForm/>
+        <div className="cuisine-selector">
+          <button
+            type="button"
+            className="cuisine-trigger"
+            onClick={() => setIsCuisineMenuOpen((prev) => !prev)}
+            aria-haspopup="listbox"
+            aria-expanded={isCuisineMenuOpen}
+          >
+            <span className="cuisine-selected">
+              {cuisine ? (
+                <>
+                  <span className="cuisine-emoji">
+                    {
+                      cuisineOptions.find((option) => option.name === cuisine)
+                        ?.emoji
+                    }
+                  </span>
+                  <span>{cuisine}</span>
+                </>
+              ) : (
+                "Select Cuisine"
+              )}
+            </span>
+            <span className="cuisine-arrow" aria-hidden="true">
+              ⌄
+            </span>
+          </button>
+          {isCuisineMenuOpen && (
+            <div className="cuisine-menu" role="listbox">
+              {cuisineOptions.map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  role="option"
+                  aria-selected={cuisine === option.name}
+                  className={`cuisine-option ${
+                    cuisine === option.name ? "selected" : ""
+                  }`}
+                  onClick={() => {
+                    setCuisine(option.name);
+                    setIsCuisineMenuOpen(false);
+                  }}
+                >
+                  <span className="cuisine-emoji">{option.emoji}</span>
+                  <span className="cuisine-name">{option.name}</span>
+                  {cuisine === option.name && (
+                    <span className="cuisine-check" aria-hidden="true">
+                      ✓
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-    )
-}
+        <button>Add Ingredient</button>
+      </form>
+      {duplicateMessage && (
+        <div
+          className={`duplicate-message ${showDuplicate ? "show" : "hide"}`}
+          role="alert"
+        >
+          <span className="duplicate-icon" aria-hidden="true">
+            !
+          </span>
+          <span>{duplicateMessage}</span>
+        </div>
+      )}
 
+      <IngredientsList
+        ingredients={ingredients}
+        removeIngredient={removeIngredient}
+        getRecipe={getRecipe}
+        recipeRef={recipeSection}
+        isLoading={isLoading}
+        hasGeneratedRecipe={hasGeneratedRecipe}
+      />
+      {recipe && <ClaudeRecipe recipe={recipe} />}
+    </main>
+  );
+};
+//==========================Cheff components End============================
+export default function ChefClaude() {
+  const [theme, setTheme] = React.useState(() => {
+    try {
+      return localStorage.getItem("chefClaudeTheme") || "light";
+    } catch {
+      return "light";
+    }
+  });
+  React.useEffect(() => {
+    document.body.setAttribute("data-theme", theme);
+
+    try {
+      localStorage.setItem("chefClaudeTheme", theme);
+    } catch {
+      // localStorage unavailable
+    }
+  }, [theme]);
+  function toggleTheme() {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  }
+  return (
+    <div>
+      <Header theme={theme} toggleTheme={toggleTheme} />
+      <MainForm />
+    </div>
+  );
+}
