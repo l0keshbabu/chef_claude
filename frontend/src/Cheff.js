@@ -1,6 +1,6 @@
 import "./Cheff.css";
 import chefimg from "./assets/images/cheff/chef1.png";
-import React from "react";
+import React, { useRef } from "react";
 import ClaudeRecipe from "./ClaudeRecipe";
 import IngredientsList from "./IngredientsList";
 import { getRecipeFromBackend } from "./api";
@@ -46,6 +46,7 @@ const MainForm = () => {
   const recipeRequestInProgress = React.useRef(false);
   const [hasGeneratedRecipe, setHasGeneratedRecipe] = React.useState(false);
   const [isCuisineMenuOpen, setIsCuisineMenuOpen] = React.useState(false);
+  const cuisineSelectorRef = React.useRef(null);
 
   React.useEffect(() => {
     if (recipe && recipeSection.current) {
@@ -75,6 +76,23 @@ const MainForm = () => {
       clearTimeout(removeTimer);
     };
   }, [duplicateMessage]);
+
+  React.useEffect(() => {
+    function handleOutsideClick(event) {
+      if (
+        cuisineSelectorRef.current &&
+        !cuisineSelectorRef.current.contains(event.target)
+      ) {
+        setIsCuisineMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   function SubmitHandler(event) {
     event.preventDefault();
@@ -141,7 +159,7 @@ const MainForm = () => {
                         <option value="American">American</option>
                         <option value="Thai">Thai</option>
                     </select> */}
-        <div className="cuisine-selector">
+        <div className="cuisine-selector" ref={cuisineSelectorRef}>
           <button
             type="button"
             className="cuisine-trigger"
@@ -164,17 +182,25 @@ const MainForm = () => {
                 "Select Cuisine"
               )}
             </span>
-            <span className="cuisine-arrow" aria-hidden="true">
+            <span
+              className={`cuisine-arrow ${isCuisineMenuOpen ? "open" : ""}`}
+              aria-hidden="true"
+            >
               ⌄
             </span>
           </button>
           {isCuisineMenuOpen && (
-            <div className="cuisine-menu" role="listbox">
+            <div
+              className={`cuisine-menu ${isCuisineMenuOpen ? "open" : ""}`}
+              role="listbox"
+              aria-hidden={!isCuisineMenuOpen}
+            >
               {cuisineOptions.map((option) => (
                 <button
-                  key={option}
+                  key={option.name}
                   type="button"
                   role="option"
+                  tabIndex={isCuisineMenuOpen ? 0 : -1}
                   aria-selected={cuisine === option.name}
                   className={`cuisine-option ${
                     cuisine === option.name ? "selected" : ""
@@ -186,6 +212,7 @@ const MainForm = () => {
                 >
                   <span className="cuisine-emoji">{option.emoji}</span>
                   <span className="cuisine-name">{option.name}</span>
+
                   {cuisine === option.name && (
                     <span className="cuisine-check" aria-hidden="true">
                       ✓
