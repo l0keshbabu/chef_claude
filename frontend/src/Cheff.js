@@ -145,20 +145,7 @@ const MainForm = () => {
     <main>
       <form onSubmit={SubmitHandler}>
         <input type="text" placeholder="e.g. Eggs" name="Ingredient"></input>
-        {/* <select
-                        value={cuisine}
-                        onChange={(e) => setCuisine(e.target.value)}
-                    >
-                        <option value="">Select cuisine</option>
-                        <option value="Indian">Indian</option>
-                        <option value="Chinese">Chinese</option>
-                        <option value="Italian">Italian</option>
-                        <option value="Mexican">Mexican</option>
-                        <option value="Japanese">Japanese</option>
-                        <option value="Mediterranean">Mediterranean</option>
-                        <option value="American">American</option>
-                        <option value="Thai">Thai</option>
-                    </select> */}
+       
         <div className="cuisine-selector" ref={cuisineSelectorRef}>
           <button
             type="button"
@@ -189,7 +176,7 @@ const MainForm = () => {
               ⌄
             </span>
           </button>
-          {isCuisineMenuOpen && (
+          
             <div
               className={`cuisine-menu ${isCuisineMenuOpen ? "open" : ""}`}
               role="listbox"
@@ -221,7 +208,7 @@ const MainForm = () => {
                 </button>
               ))}
             </div>
-          )}
+          
         </div>
         <button>Add Ingredient</button>
       </form>

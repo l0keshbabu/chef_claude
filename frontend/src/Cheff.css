@@ -135,18 +135,7 @@ form > input {
 form > input::placeholder {
   color: var(--text-muted);
 }
-/* form > select {
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    padding: 10px 14px;
-    font-family: Inter, sans-serif;
-    font-size: 0.95rem;
-    background-color: var(--surface);
-    color: var(--text-primary);
-    cursor: pointer;
-    box-shadow: 0 1px 2px var(--shadow-sm);
-    min-width: 170px;
-} */
+
 .cuisine-selector {
   position: relative;
   flex: 0 0 170px;
@@ -305,9 +294,10 @@ form > button::before {
     height: auto;
   }
 
-  form > select {
-    min-width: 0;
+  .cuisine-selector {
+    flex: none;
     width: 100%;
+    height: 46px;
   }
 
   form > button {
@@ -332,10 +322,7 @@ form > button::before {
     width: 100%;
   }
 }
-/* .wrapper{
-    max-width: 400px;
-    margin: 0 auto;
-} */
+
 .empty-ingredients {
   max-width: 581px;
   margin: 10px 0 48px;
